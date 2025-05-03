@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Арсений и Алина — Приглашение на свадьбу</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cover">
+    <h1>Арсений & Алина</h1>
+    <h2>приглашают вас на свадьбу<br>5 июля 2025 года</h2>
+  </div>
+
+  <section>
+    <h3>Дорогие родные и близкие!</h3>
+    <p>Мы давно ждали момента, когда сможем разделить с Вами самый важный и счастливый день в нашей жизни.
+       Совсем скоро состоится наша свадьба! Мы рады пригласить Вас стать свидетелями этого торжества и разделить с нами самые яркие моменты!</p>
+  </section>
+
+  <section>
+    <h3>Место проведения</h3>
+    <p>Праздничный ужин пройдет в 17-30 <br> в «LOFT HOLL», по адресу <br> г. Москва, Ленинская Слобода, 26с25</p>
+  </section>
+
+  <section>
+    <h3> Пожелание</h3>
+    <p>Приятным комплиментом для нас будет, если вместо цветов Вы решите подарить нам бутылочку вина или шампанского для нашей семейной коллекции.</p>
+  </section>
+
+  <section>
+    <h3>Дресс-код</h3>
+    <p>Будем благодарны, если Вы поддержите стилистику мероприятия в пастельных и природных оттенках.</p>
+  </section>
+
+  <section>
+    <h3>Цветовая палитра</h3>
+    <p>Просим Вас ориентироваться на следующие оттенки:</p>
+    <div class="palette-strict">
+      <div class="circle" style="background-color: #D97F8B;"></div>
+      <div class="circle" style="background-color: #E1AA8F;"></div>
+      <div class="circle" style="background-color: #FFC2BE;"></div>
+      <div class="circle" style="background-color: #F8EBDE;"></div>
+      <div class="circle" style="background-color: #F6CE98;"></div>
+    </div>
+  </section> 
+
+  <section>
+    <h3>Подтвердите, пожалуйста, присутствие на торжестве</h3>
+    <form class="rsvp-form" id="rsvp-form">
+      <input type="text" name="name" placeholder="Имя и фамилия" required>
+      <input type="tel" name="phone" placeholder="Телефон">
+      <textarea name="message" placeholder="Пожелания и предпочтения ..."></textarea>
+      <button type="submit">Подтвердить участие</button>
+    </form>
+  
+    <p id="thanks" class="thanks-message">Спасибо! Будем рады Вас видеть!</p>
+  
+  </section>
+
+
+  <footer>
+    <div class="footer-content">
+    Мы будем счастливы видеть Вас!
+  </div>
+  </footer>
+
+  <script>
+    document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+  
+      const form = e.target;
+      const button = form.querySelector('button');
+  
+      // ✅ Сразу меняем стиль кнопки
+      button.classList.add('button-sent');
+      button.textContent = "✓ Отправляется...";
+  
+      // ✅ Собираем данные
+      const data = {
+        name: form.name.value,
+        phone: form.phone.value,
+        message: form.message.value
+      };
+  
+      // ✅ Отправка в Google Таблицу
+      fetch("https://script.google.com/macros/s/AKfycbzgx4HsApOlL6DgoQRWcLZ5wfOogSbkfoRpx8J036-0G69Rf31MT4myhGv8guZO42Wq3g/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      }).then(response => {
+        if (response.ok) {
+          // Показываем сообщение, скрываем форму
+          form.style.display = 'none';
+          document.getElementById('thanks').style.display = 'block';
+        } else {
+          button.textContent = "Ошибка 😢";
+          button.style.backgroundColor = '#b86f6f';
+        }
+      }).catch(() => {
+        button.textContent = "Ошибка 😢";
+        button.style.backgroundColor = '#b86f6f';
+      });
+    });
+  </script>
+  
+  
+  
+
+  </body>
+  </html>
+  
